@@ -1,5 +1,6 @@
 #! /usr/bin/python3
 # -*- coding: utf-8 -*-
+# Migrate EML files into a Google Groups archive using the Groups Migration API.
 
 from __future__ import print_function
 import httplib2
@@ -27,6 +28,8 @@ except ImportError:
     flags = None
 
 SCOPES = ['https://www.googleapis.com/auth/apps.groups.migration']
+
+# INSERT THE PATH TO YOUR CLIENT_SECRETS LOCATION
 CLIENT_SECRET_FILE = '/PATH/TO/CLIENT_SECRET_FILE'
 APPLICATION_NAME = 'Groups Migrator'
 
@@ -62,6 +65,8 @@ def main():
     credentials = get_credentials()
     http = credentials.authorize(httplib2.Http())
     service = discovery.build('groupsmigration', 'v1', http=http)
+
+    # INSERT THE PATH TO WHERE THE EML FILES ARE LOCATED 
     base_path = '/PATH/TO/EML_FILES/'
     for filename in os.listdir(base_path):
         with open(base_path + filename, 'rb') as to_insert:
